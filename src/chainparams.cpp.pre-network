@@ -52,7 +52,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "ALTCOIN genesis 2025-10-16 - own chain, own math";
+    const char* pszTimestamp = "NY Times 05/Oct/2011 Steve Jobs, Apple’s Visionary, Dies at 56";
     const CScript genesisOutputScript = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
@@ -104,25 +104,30 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 32-bit integer with any alignment.
          */
-        pchMessageStart[0] = 0xc3;
-        pchMessageStart[1] = 0xfa;
-        pchMessageStart[2] = 0xbc;
-        pchMessageStart[3] = 0xef;
-        nDefaultPort = 18433;
+        pchMessageStart[0] = 0xfb;
+        pchMessageStart[1] = 0xc0;
+        pchMessageStart[2] = 0xb6;
+        pchMessageStart[3] = 0xdb;
+        nDefaultPort = 9333;
         nPruneAfterHeight = 100000;
         m_assumed_blockchain_size = 40;
         m_assumed_chain_state_size = 2;
 
-        genesis = CreateGenesisBlock(1760634873, 659637, 0x1e0ffff0, 1, (52 * COIN) + 38095238);
+        genesis = CreateGenesisBlock(1317972665, 2084524493, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0xfb27044548436f5a34743d54261d79b6a37331152d5763c75a58b1c90f1d35fc"));
-        assert(genesis.hashMerkleRoot == uint256S("0x4f3637f43fb675640aaf39f50ae737d42cbce2a57a6891859c38f02295846336"));
+        assert(consensus.hashGenesisBlock == uint256S("0x12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2"));
+        assert(genesis.hashMerkleRoot == uint256S("0x97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
 
         // Note that of those which support the service bits prefix, most only support a subset of
         // possible options.
         // This is fine at runtime as we'll fall back to using them as an addrfetch if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
+        vSeeds.emplace_back("seed-a.litecoin.loshan.co.uk");
+        vSeeds.emplace_back("dnsseed.thrasher.io");
+        vSeeds.emplace_back("dnsseed.litecointools.com");
+        vSeeds.emplace_back("dnsseed.litecoinpool.org");
+        vSeeds.emplace_back("dnsseed.koin-project.com");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,23);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
@@ -134,7 +139,8 @@ public:
         bech32_hrp = "alt";
         mweb_hrp = "altmweb";
 
-	vFixedSeeds.clear();
+        vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_main), std::end(chainparams_seed_main));
+
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
         m_is_test_chain = false;
@@ -212,33 +218,26 @@ public:
         consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000004260a1758f04aa");
         consensus.defaultAssumeValid = uint256S("0x4a280c0e150e3b74ebe19618e6394548c8a39d5549fd9941b9c431c73822fbd5"); // 1737876
 
-        pchMessageStart[0] = 0xda;
-        pchMessageStart[1] = 0xa5;
-        pchMessageStart[2] = 0x7a;
-        pchMessageStart[3] = 0x0f;
-        nDefaultPort = 21433;
+        pchMessageStart[0] = 0xfd;
+        pchMessageStart[1] = 0xd2;
+        pchMessageStart[2] = 0xc8;
+        pchMessageStart[3] = 0xf1;
+        nDefaultPort = 19335;
         nPruneAfterHeight = 1000;
         m_assumed_blockchain_size = 4;
         m_assumed_chain_state_size = 1;
 
-        {
-    // ALTCOIN testnet genesis
-    const char* pszTimestamp = "ALTCOIN testnet genesis 2025-10-16 - builders welcome";
-    const CScript genesisOutputScript = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
-
-    genesis = CreateGenesisBlock(pszTimestamp, genesisOutputScript,
-                                 1760635868,   // nTime
-                                 371862,       // nNonce
-                                 0x1e0ffff0,   // nBits
-                                 1,            // nVersion
-                                 (52 * COIN) + 38095238); // genesisReward (matches your 88M plan)
-    }
+        genesis = CreateGenesisBlock(1486949366, 293345, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0xe068f7e6610fd4f8faafb136e7ee4bd5d97fad3fe739e67b8f61e492fa234acc"));
-        assert(genesis.hashMerkleRoot == uint256S("0x2797fa6064379522d58a3db5c520e25d6c2ed165ce6e01bd4703f7aed4a8294c"));
+        assert(consensus.hashGenesisBlock == uint256S("0x4966625a4b2851d9fdee139e56211a0d88575f59ed816ff5e6a63deb4e3e29a0"));
+        assert(genesis.hashMerkleRoot == uint256S("0x97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
+        // nodes with support for servicebits filtering should be at the top
+        vSeeds.emplace_back("testnet-seed.litecointools.com");
+        vSeeds.emplace_back("seed-b.litecoin.loshan.co.uk");
+        vSeeds.emplace_back("dnsseed-testnet.thrasher.io");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
@@ -327,21 +326,10 @@ public:
 
         UpdateActivationParametersFromArgs(args);
 
-        {
-    // ALTCOIN regtest genesis
-    const char* pszTimestamp = "ALTCOIN regtest genesis 2025-10-16 - fast dev chain";
-    const CScript genesisOutputScript = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
-
-    genesis = CreateGenesisBlock(pszTimestamp, genesisOutputScript,
-                                 1760636060,   // nTime
-                                 0,            // nNonce
-                                 0x207fffff,   // nBits (easy regtest)
-                                 1,            // nVersion
-                                 (52 * COIN) + 38095238); // genesisReward
-    }
+        genesis = CreateGenesisBlock(1296688602, 0, 0x207fffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x2a8ae1daec96c0173915d289f9149a5fff6c906cf78270bdd60292a68b31d72e"));
-        assert(genesis.hashMerkleRoot == uint256S("0x84f5faee6c50cee900f8cb3fe7c8b4d348c156544d61a43d270904d88b3852c1"));
+        assert(consensus.hashGenesisBlock == uint256S("0x530827f38f93b43ed12af0b3ad25a288dc02ed74d6d7857862df51fc56c416f9"));
+        assert(genesis.hashMerkleRoot == uint256S("0x97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();      //!< Regtest mode doesn't have any DNS seeds.

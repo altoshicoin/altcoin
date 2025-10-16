@@ -1270,8 +1270,8 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
     if (halvings >= 64)
         return 0;
 
-    CAmount nSubsidy = 50 * COIN;
-    // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
+    // ALTCOIN: initial subsidy for ~88,000,000 cap with 840k halving
+    CAmount nSubsidy = 5238095238; // 52.38095238 ALT in altoshis
     nSubsidy >>= halvings;
     return nSubsidy;
 }
