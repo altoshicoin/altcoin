@@ -128,8 +128,8 @@ public:
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
         base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,50);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,176);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x0A, 0x2D, 0xB4, 0x7E}; // ALT mainnet ext pub
+        base58Prefixes[EXT_SECRET_KEY] = {0x0A, 0x2D, 0xAE, 0x42}; // ALT mainnet ext prv
 
         bech32_hrp = "alt";
         mweb_hrp = "altmweb";
@@ -244,8 +244,8 @@ public:
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
         base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,58);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x0A, 0x44, 0xCA, 0x99}; // ALT regtest ext pub
+        base58Prefixes[EXT_SECRET_KEY] = {0x0A, 0x44, 0xC4, 0xFE}; // ALT regtest ext prv
 
         bech32_hrp = "talt";
         mweb_hrp = "taltmweb";
