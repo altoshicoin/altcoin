@@ -42,11 +42,11 @@ QString BitcoinUnits::longName(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("LTC");
-    case mBTC: return QString("lites");
-    case uBTC: return QString("photons");
-    case SAT: return QString("liteoshi");
-    default: return QString("???");
+    case BTC: return QString("ALT");
+    case mBTC: return QString("alts");
+    case uBTC: return QString("microalts");
+    case SAT: return QString("altoshi");
+    default: return QString("ALT");
     }
 }
 
@@ -64,11 +64,11 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("Litecoins");
-    case mBTC: return QString("Lites (1 / 1" THIN_SP_UTF8 "000)");
-    case uBTC: return QString("Photons (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-    case SAT: return QString("Liteoshis (sat) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-    default: return QString("???");
+    case BTC: return QString("Altcoins");
+    case mBTC: return QString("Alts (1 / 1" THIN_SP_UTF8 "000)");
+    case uBTC: return QString("Microalts (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case SAT: return QString("Altoshis (sat) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    default: return QString("ALT");
     }
 }
 

@@ -62,7 +62,7 @@
 #include <QUrlQuery>
 #include <QVBoxLayout>
 #include <QWindow>
-
+#include <QPainter>   // near the other Qt includes
 
 const std::string BitcoinGUI::DEFAULT_UIPLATFORM =
 #if defined(Q_OS_MAC)
@@ -235,6 +235,8 @@ BitcoinGUI::~BitcoinGUI()
 
     delete rpcConsole;
 }
+
+
 
 void BitcoinGUI::createActions()
 {

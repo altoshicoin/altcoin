@@ -1,3 +1,4 @@
+#include <QRegularExpression>
 // Copyright (c) 2011-2020 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -53,12 +54,31 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, bool about) :
         ui->aboutMessage->setTextFormat(Qt::RichText);
         ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         text = version + "\n" + QString::fromStdString(FormatParagraph(licenseInfo));
-        ui->aboutMessage->setText(version + "<br><br>" + licenseInfoHTML);
+        ui->aboutMessage->setOpenExternalLinks(true);
+        QString cleanVersion = version; cleanVersion.replace(QRegularExpression("-[0-9a-fA-F]{7,}(?:-dirty)?$"), "");
+        ui->aboutMessage->setText(
+            cleanVersion + "<br><br>" + QStringLiteral(
+                "Copyright (C) 2025 The Altcoin Core developers<br>"
+                "Copyright (C) 2009-2024 The Bitcoin Core developers<br><br>"
+                "Please contribute if you find Altcoin Core useful. "
+                "Visit <a style=\"color:#e36a6a;\" href=\"https://altoshi.org\">https://altoshi.org</a> for further information about the software.<br>"
+                "The source code is available from <a style=\"color:#e36a6a;\" href=\"https://github.com/altoshicoin/altcoin\">https://github.com/altoshicoin/altcoin</a>"
+            )
+        );
+        {
+            QString _html = ui->aboutMessage->text();
+            _html.replace(QRegularExpression("(version\\s+v?[0-9][^<\\s]*)-[0-9a-f]{7,}(?:-dirty)?"), "\\1");
+            ui->aboutMessage->setText(_html);
+        }
+        QPalette pal = ui->aboutMessage->palette();
+        pal.setColor(QPalette::Link, QColor("#e36a6a"));
+        pal.setColor(QPalette::LinkVisited, QColor("#e36a6a"));
+        ui->aboutMessage->setPalette(pal);
         ui->aboutMessage->setWordWrap(true);
         ui->helpMessage->setVisible(false);
     } else {
         setWindowTitle(tr("Command-line options"));
-        QString header = "Usage:  litecoin-qt [command-line options]                     \n";
+        QString header = "Usage:  altcoin-qt [command-line options]                     \n";
         QTextCursor cursor(ui->helpMessage->document());
         cursor.insertText(version);
         cursor.insertBlock();

@@ -12,12 +12,13 @@
 #include <qt/optionsdialog.h>
 
 #include <amount.h>
-
+#include <QWidget>
 #include <QLabel>
 #include <QMainWindow>
 #include <QMap>
 #include <QPoint>
 #include <QSystemTrayIcon>
+#include <QResizeEvent>
 
 #ifdef Q_OS_MAC
 #include <qt/macos_appnap.h>

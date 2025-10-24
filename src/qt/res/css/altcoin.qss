@@ -1,0 +1,89 @@
+/* Dark theme tuned for grey logo (#474747 / #a9a9a9) */
+QWidget { background: #1b1b1b; color: #a9a9a9; }
+QToolBar, QMenuBar, QStatusBar { background: #232323; color: #a9a9a9; }
+QPushButton {
+  background: #2a2a2a; color: #d0d0d0; border: 1px solid #474747; border-radius: 4px; padding: 4px 8px;
+}
+QPushButton:hover { background: #333333; }
+QPushButton:pressed { background: #3a3a3a; }
+QLineEdit, QPlainTextEdit, QTextEdit {
+  background: #202020; color: #e0e0e0; border: 1px solid #474747; border-radius: 3px;
+}
+QTreeView, QTableView {
+  background: #1e1e1e; alternate-background-color: #242424; color: #cfcfcf; gridline-color: #474747;
+}
+QHeaderView::section {
+  background: #262626; color: #cfcfcf; border: 0; border-bottom: 1px solid #474747; padding: 4px;
+}
+QTabBar::tab { background: #262626; color: #cfcfcf; padding: 6px 10px; border: 1px solid #474747; border-bottom: none; }
+QTabBar::tab:selected { background: #303030; }
+QProgressBar { border: 1px solid #474747; text-align: center; color: #e0e0e0; background: #1b1b1b; }
+QProgressBar::chunk { background-color: #5a5a5a; }
+/* === Overlay cleanup === */
+
+/* 1) Never draw borders around plain text widgets */
+QLabel, QTextBrowser, QCheckBox, QRadioButton {
+    background: transparent;
+    border: none;
+}
+
+/* 2) Progress bar: no border, no background; keep a subtle chunk color */
+QProgressBar {
+    background: transparent;
+    border: none;
+    color: #d9d9d9;           /* % text */
+    text-align: center;
+}
+QProgressBar::chunk {
+    background: #a9a9a9;      /* your light gray */
+    border: none;
+}
+
+/* 3) Keep the large overlay panel frame (subtle border is OK) */
+QFrame {
+    border: 1px solid #2b2b2b;    /* matches your dark theme */
+    border-radius: 6px;
+}
+
+/* ===== Overlay-only cleanup (no pill borders; transparent bg) ===== */
+
+/* Target the overlay by its widget class name (ModalOverlay) */
+ModalOverlay, ModalOverlay * {
+    background: transparent;
+    border: none;
+}
+
+/* Keep a subtle frame only around the large overlay panel */
+ModalOverlay QFrame {
+    background: #1a1a1a;          /* dark panel */
+    border: 1px solid #2b2b2b;    /* thin border */
+    border-radius: 6px;
+}
+
+/* Progress bar: no border/background; show only the fill */
+ModalOverlay QProgressBar {
+    background: transparent;
+    border: none;
+    color: #d9d9d9;               /* “0.00%” text */
+    text-align: center;
+}
+ModalOverlay QProgressBar::chunk {
+    background: #a9a9a9;          /* your light gray fill */
+    border: none;
+}
+
+/* ===== Overlay cleanup: no pill borders; transparent progress bar ===== */
+ModalOverlay QProgressBar {
+    background: transparent;
+    border: 1px solid transparent;   /* ensure no frame is drawn */
+    color: #d9d9d9;                  /* “0.00%” text */
+    text-align: center;
+}
+ModalOverlay QProgressBar::chunk {
+    background: #a9a9a9;             /* light grey fill */
+    border: none;
+}
+/* ===== Modal overlay tweaks (compiled) ===== */
+ModalOverlay QProgressBar { background: transparent; border: 0; padding: 0; min-height: 10px; }
+ModalOverlay QProgressBar::chunk { background: #a9a9a9; border: 0; }
+ModalOverlay QFrame { border: 1px solid #2b2b2b; }

@@ -1,3 +1,5 @@
+#include <QFrame>
+#include <QGroupBox>
 // Copyright (c) 2011-2019 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -29,7 +31,16 @@ ReceiveCoinsDialog::ReceiveCoinsDialog(const PlatformStyle *_platformStyle, QWid
 {
     ui->setupUi(this);
 
-    if (!_platformStyle->getImagesOnButtons()) {
+    
+
+    
+
+    
+
+
+/* __CLEAN_START__ */
+/* __CLEAN_END__ */
+if (!_platformStyle->getImagesOnButtons()) {
         ui->clearButton->setIcon(QIcon());
         ui->receiveButton->setIcon(QIcon());
         ui->showRequestButton->setIcon(QIcon());

@@ -1,3 +1,5 @@
+#include <QFrame>
+#include <QLabel>
 // Copyright (c) 2016-2020 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -21,7 +23,73 @@ layerIsVisible(false),
 userClosed(false)
 {
     ui->setupUi(this);
-    connect(ui->closeButton, &QPushButton::clicked, this, &ModalOverlay::closeClicked);
+
+    // Force QSS/palette backgrounds to apply on native widgets
+    setAttribute(Qt::WA_StyledBackground, true);
+
+    // Make sure native widgets actually paint style/palette backgrounds
+setAttribute(Qt::WA_StyledBackground, true);
+
+// Dimmer layer
+if (auto bg = findChild<QWidget*>("bgWidget")) {
+    bg->setAttribute(Qt::WA_StyledBackground, true);
+    bg->setAutoFillBackground(true);
+    // inline style so we don't rely on app QSS for this
+    bg->setStyleSheet("QWidget#bgWidget { background: rgba(0,0,0,110); }");
+}
+
+// The centered content “card”
+if (auto card = findChild<QWidget*>("contentWidget")) {
+    card->setAttribute(Qt::WA_StyledBackground, true);
+    card->setAutoFillBackground(true);
+
+    // belt & suspenders: palette + stylesheet (either one alone is fine,
+    // both together guarantees the fill actually shows)
+    {
+        QPalette pal = card->palette();
+        pal.setColor(QPalette::Window, QColor("#d7d7d7"));
+        card->setPalette(pal);
+    }
+    card->setStyleSheet(
+        "QWidget#contentWidget {"
+        "  background:#111111;"
+        "  border:1px solid #2b2b2b;"
+        "  border-radius:8px;"
+        "  padding:20px;"
+        "}"
+    );
+}
+
+// Kill any “chip” frames on overlay labels so you only see plain text
+for (auto lbl : findChildren<QLabel*>()) {
+    lbl->setFrameShape(QFrame::NoFrame);
+    lbl->setLineWidth(0);
+    lbl->setAutoFillBackground(false);
+}
+for (auto fr : findChildren<QFrame*>()) {
+    fr->setFrameShape(QFrame::NoFrame);
+    fr->setLineWidth(0);
+}
+
+    
+auto killFrame=[&](const char* n){ if(auto w=findChild<QFrame*>(n)) { w->setFrameShape(QFrame::NoFrame); w->setLineWidth(0); w->setAutoFillBackground(false);} };
+    const char* ids[]={
+        "infoText","infoTextStrong",
+        "labelNumberOfBlocksLeft","numberOfBlocksLeft",
+        "labelLastBlockTime","newestBlockDate",
+        "percentageProgress","labelProgressIncrease","progressIncreasePerH",
+        "labelEstimatedTimeLeft","expectedTimeLeft"
+    };
+    for(auto id:ids) killFrame(id);
+// In the overlay, any icon-only QPushButton gets a transparent tile; text buttons (e.g., Hide) stay normal
+    for (auto btn : this->findChildren<QPushButton*>()) {
+        const bool iconOnly = btn->text().trimmed().isEmpty();
+        if (iconOnly) {
+            btn->setFlat(true);
+            btn->setStyleSheet("background: transparent; border: none; padding: 0; margin: 0;");
+        }
+    }
+connect(ui->closeButton, &QPushButton::clicked, this, &ModalOverlay::closeClicked);
     if (parent) {
         parent->installEventFilter(this);
         raise();

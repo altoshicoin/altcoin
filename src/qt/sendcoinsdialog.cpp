@@ -1,3 +1,5 @@
+#include <QFrame>
+#include <QGroupBox>
 // Copyright (c) 2011-2020 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -66,7 +68,16 @@ SendCoinsDialog::SendCoinsDialog(const PlatformStyle *_platformStyle, QWidget *p
 {
     ui->setupUi(this);
 
-    if (!_platformStyle->getImagesOnButtons()) {
+    
+
+    
+
+    
+
+
+/* __CLEAN_START__ */
+/* __CLEAN_END__ */
+if (!_platformStyle->getImagesOnButtons()) {
         ui->addButton->setIcon(QIcon());
         ui->clearButton->setIcon(QIcon());
         ui->sendButton->setIcon(QIcon());
@@ -188,7 +199,7 @@ void SendCoinsDialog::setModel(WalletModel *_model)
         connect(ui->groupFee, static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), this, &SendCoinsDialog::updateFeeSectionControls);
         connect(ui->groupFee, static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), this, &SendCoinsDialog::coinControlUpdateLabels);
         connect(ui->customFee, &BitcoinAmountField::valueChanged, this, &SendCoinsDialog::coinControlUpdateLabels);
-        // Litecoin: Disable RBF
+        // Altcoin: Disable RBF
         // connect(ui->optInRBF, &QCheckBox::stateChanged, this, &SendCoinsDialog::updateSmartFeeLabel);
         // connect(ui->optInRBF, &QCheckBox::stateChanged, this, &SendCoinsDialog::coinControlUpdateLabels);
         CAmount requiredFee = model->wallet().getRequiredFee(1000, 0);
@@ -201,7 +212,7 @@ void SendCoinsDialog::setModel(WalletModel *_model)
         updateSmartFeeLabel();
 
         // set default rbf checkbox state
-        // Litecoin: Disable RBF
+        // Altcoin: Disable RBF
         // ui->optInRBF->setCheckState(Qt::Checked);
 
         if (model->wallet().privateKeysDisabled()) {
@@ -370,7 +381,7 @@ bool SendCoinsDialog::PrepareSendText(QString& question_string, QString& informa
         question_string.append("</span><br />");
 
         // append RBF message according to transaction's signalling
-        /* Litecoin: Disable RBF
+        /* Altcoin: Disable RBF
         question_string.append("<span style='font-size:10pt; font-weight:normal;'>");
         if (ui->optInRBF->isChecked()) {
             question_string.append(tr("You can increase the fee later (signals Replace-By-Fee, BIP-125)."));
@@ -793,7 +804,7 @@ void SendCoinsDialog::updateCoinControlState(CCoinControl& ctrl)
     // Avoid using global defaults when sending money from the GUI
     // Either custom fee will be used or if not selected, the confirmation target from dropdown box
     ctrl.m_confirm_target = getConfTargetForIndex(ui->confTargetSelector->currentIndex());
-    // Litecoin: Disable RBF GUI
+    // Altcoin: Disable RBF GUI
     // ctrl.m_signal_bip125_rbf = ui->optInRBF->isChecked();
     // Include watch-only for wallets without private key
     ctrl.fAllowWatchOnly = model->wallet().privateKeysDisabled();
@@ -929,7 +940,7 @@ void SendCoinsDialog::coinControlChangeEdited(const QString& text)
         }
         else if (!IsValidDestination(dest)) // Invalid address
         {
-            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Litecoin address"));
+            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Altcoin address"));
         }
         else // Valid address
         {
