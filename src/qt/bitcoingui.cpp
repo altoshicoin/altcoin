@@ -39,6 +39,8 @@
 #include <util/system.h>
 #include <util/translation.h>
 #include <validation.h>
+#include <QPalette>
+#include <QColor>
 
 #include <QAction>
 #include <QApplication>
@@ -136,6 +138,14 @@ BitcoinGUI::BitcoinGUI(interfaces::Node& node, const PlatformStyle *_platformSty
 
     // Create status bar
     statusBar();
+
+          // Global link color for all anchor <a> links in the app
+      {
+          QPalette pal = QApplication::palette();
+          pal.setColor(QPalette::Link, QColor("#e57373"));
+          pal.setColor(QPalette::LinkVisited, QColor("#e57373"));
+          QApplication::setPalette(pal);
+      }
 
     // Disable size grip because it looks ugly and nobody needs it
     statusBar()->setSizeGripEnabled(false);
