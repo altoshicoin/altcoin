@@ -765,7 +765,23 @@ void ClearDatadirCache()
 
 fs::path GetConfigFile(const std::string& confPath)
 {
-    return AbsPathForConfigVal(fs::path(confPath), false);
+    fs::path p = AbsPathForConfigVal(fs::path(confPath), false);
+
+    // Legacy fallback: if altcoin.conf is missing, accept litecoin.conf in the same dir.
+    // Only apply when the requested filename is the default "altcoin.conf".
+    if (!fs::exists(p)) {
+        const bool is_default_alt = p.has_filename() && p.filename().string() == "altcoin.conf";
+        if (is_default_alt) {
+            fs::path legacy = p;
+            legacy.replace_filename("litecoin.conf");
+            if (fs::exists(legacy)) {
+                LogPrintf("Using config file (legacy): %s\n", legacy.string());
+                return legacy;
+            }
+        }
+    }
+    LogPrintf("Using config file: %s\n", p.string());
+    return p;
 }
 
 static bool GetConfigOptions(std::istream& stream, const std::string& filepath, std::string& error, std::vector<std::pair<std::string, std::string>>& options, std::list<SectionInfo>& sections)

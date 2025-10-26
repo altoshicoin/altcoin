@@ -18,6 +18,7 @@
 #include <qt/platformstyle.h>
 #include <qt/rpcconsole.h>
 #include <qt/utilitydialog.h>
+#include <algorithm>
 
 #ifdef ENABLE_WALLET
 #include <qt/walletcontroller.h>
@@ -138,6 +139,13 @@ BitcoinGUI::BitcoinGUI(interfaces::Node& node, const PlatformStyle *_platformSty
 
     // Disable size grip because it looks ugly and nobody needs it
     statusBar()->setSizeGripEnabled(false);
+    
+    // bitcoingui.cpp (inside BitcoinGUI constructor, after statusBar() is available)
+    m_syncPill = new QLabel(this);
+    m_syncPill->setObjectName("syncPill");
+    m_syncPill->setText(tr("Syncing…"));
+    m_syncPill->setProperty("state", "idle"); // QSS picks this up
+    statusBar()->addPermanentWidget(m_syncPill, 0);
 
     // Status bar notification icons
     QFrame *frameBlocks = new QFrame();
@@ -236,6 +244,30 @@ BitcoinGUI::~BitcoinGUI()
     delete rpcConsole;
 }
 
+void BitcoinGUI::updateSyncPill(double verificationProgress, int currentHeight)
+{
+    // Clamp and classify
+    const double p = std::max(0.0, std::min(1.0, verificationProgress));
+    const char* state = (p >= 0.9995) ? "synced" : (p >= 0.70) ? "syncing" : "idle";
+
+    // Pretty numbers
+    static QLocale loc; // uses system locale
+    const QString heightStr = loc.toString(static_cast<qlonglong>(currentHeight));
+    const QString pctStr    = loc.toString(p * 100.0, 'f', (p >= 0.995) ? 2 : 1);
+
+    // Text: "Height 12,345 • 99.9%"
+    const QString text = tr("Height %1 • %2%").arg(heightStr, pctStr);
+
+    if (!m_syncPill) return;
+    m_syncPill->setText(text);
+
+    // Update state for QSS (idle|syncing|synced)
+    m_syncPill->setProperty("state", state);
+    // Re-apply style so the pill recolors immediately
+    m_syncPill->style()->unpolish(m_syncPill);
+    m_syncPill->style()->polish(m_syncPill);
+    m_syncPill->update();
+}
 
 
 void BitcoinGUI::createActions()
@@ -640,6 +672,7 @@ void BitcoinGUI::setClientModel(ClientModel *_clientModel, interfaces::BlockAndH
 #endif // ENABLE_WALLET
         unitDisplayControl->setOptionsModel(nullptr);
     }
+    // where you attach clientModel in BitcoinGUI (often setClientModel or constructor after setClientModel)
 }
 
 #ifdef ENABLE_WALLET
@@ -1074,6 +1107,7 @@ void BitcoinGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVer
     labelBlocksIcon->setToolTip(tooltip);
     progressBarLabel->setToolTip(tooltip);
     progressBar->setToolTip(tooltip);
+    updateSyncPill(nVerificationProgress, count);
 }
 
 void BitcoinGUI::message(const QString& title, QString message, unsigned int style, bool* ret, const QString& detailed_message)
