@@ -54,7 +54,7 @@ reachable from the Tor network. Add these lines to your /etc/tor/torrc (or equiv
 config file): *Needed for Tor version 0.2.7.0 and older versions of Tor only. For newer
 versions of Tor see [Section 3](#3-automatically-listen-on-tor).*
 
-	HiddenServiceDir /var/lib/tor/litecoin-service/
+	HiddenServiceDir /var/lib/tor/altcoin-service/
 	HiddenServicePort 9333 127.0.0.1:9333
 	HiddenServicePort 19335 127.0.0.1:19335
 
@@ -65,7 +65,7 @@ should be equal to binding address and port for inbound Tor connections (127.0.0
 	-externalip=X   You can tell litecoin about its publicly reachable addresses using
 	                this option, and this can be an onion address. Given the above
 	                configuration, you can find your onion address in
-	                /var/lib/tor/litecoin-service/hostname. For connections
+	                /var/lib/tor/altcoin-service/hostname. For connections
 	                coming from unroutable addresses (such as 127.0.0.1, where the
 	                Tor proxy typically runs), onion addresses are given
 	                preference for your node to advertise itself with.

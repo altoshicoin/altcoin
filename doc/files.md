@@ -26,7 +26,7 @@ The data directory is the default location where the Altcoin Core files are stor
 
 Platform | Data directory path
 ---------|--------------------
-Linux    | `$HOME/.litecoin/`
+Linux    | `$HOME/.altcoin/`
 macOS    | `$HOME/Library/Application Support/Altcoin/`
 Windows  | `%APPDATA%\Altcoin\` <sup>[\[1\]](#note1)</sup>
 

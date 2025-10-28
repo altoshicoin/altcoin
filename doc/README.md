@@ -5,7 +5,7 @@ Setup
 ---------------------
 Altcoin Core is the original Altcoin client and it builds the backbone of the network. It downloads and, by default, stores the entire history of Altcoin transactions, which requires approximately 22 gigabytes of disk space. Depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
 
-To download Altcoin Core, visit [litecoin.org](https://altoshi.org/).
+To download Altcoin Core, visit [altoshi.org](https://altoshi.org).
 
 Running
 ---------------------
@@ -29,8 +29,8 @@ Drag Altcoin Core to your applications folder, and then run Altcoin Core.
 ### Need Help?
 
 * See the documentation at the [Altcoin Wiki](https://litecoin.info/) for help and more information.
-* Ask for help on [#litecoin](https://webchat.freenode.net/#litecoin) on Freenode. If you don't have an IRC client, use [webchat here](https://webchat.freenode.net/#litecoin).
-* Ask for help on the [LitecoinTalk](https://litecointalk.io/) forums, in the [Technical Support board](https://litecointalk.io/c/technical-support).
+* Ask for help on [#altcoin](https://webchat.freenode.net/#altcoin) on Freenode. If you don't have an IRC client, use [webchat here](https://webchat.freenode.net/#altcoin).
+* Ask for help on the [LitecoinTalk](https://altoshi.org/) forums, in the [Technical Support board](https://altoshi.org/c/technical-support).
 
 Building
 ---------------------
@@ -64,8 +64,8 @@ The Altcoin repo's [root README](/README.md) contains relevant information on th
 - [Benchmarking](benchmarking.md)
 
 ### Resources
-* Discuss on the [LitecoinTalk](https://litecointalk.io/) forums.
-* Discuss general Altcoin development on #litecoin-dev on Freenode. If you don't have an IRC client, use [webchat here](https://webchat.freenode.net/#litecoin-dev).
+* Discuss on the [LitecoinTalk](https://altoshi.org/) forums.
+* Discuss general Altcoin development on #altcoin-dev on Freenode. If you don't have an IRC client, use [webchat here](https://webchat.freenode.net/#altcoin-dev).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

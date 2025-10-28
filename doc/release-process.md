@@ -360,7 +360,7 @@ Note: check that SHA256SUMS itself doesn't end up in SHA256SUMS, which is a spur
 
   - blog.litecoin.org blog post
 
-  - Update title of #litecoin and #litecoin-dev on Freenode IRC
+  - Update title of #altcoin and #altcoin-dev on Freenode IRC
 
   - Optionally twitter, reddit /r/Altcoin, ... but this will usually sort out itself
 
