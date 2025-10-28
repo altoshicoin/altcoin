@@ -2,7 +2,7 @@
 # Copyright (c) 2017-2020 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Class for litecoind node under test"""
+"""Class for altcoind node under test"""
 
 import contextlib
 import decimal
@@ -50,7 +50,7 @@ class ErrorMatch(Enum):
 
 
 class TestNode():
-    """A class for representing a litecoind node under test.
+    """A class for representing a altcoind node under test.
 
     This class contains:
 
@@ -72,7 +72,7 @@ class TestNode():
 
         self.index = i
         self.datadir = datadir
-        self.bitcoinconf = os.path.join(self.datadir, "litecoin.conf")
+        self.bitcoinconf = os.path.join(self.datadir, "altcoin.conf")
         self.stdout_dir = os.path.join(self.datadir, "stdout")
         self.stderr_dir = os.path.join(self.datadir, "stderr")
         self.chain = chain
@@ -206,19 +206,19 @@ class TestNode():
         self.process = subprocess.Popen(self.args + extra_args, env=subp_env, stdout=stdout, stderr=stderr, cwd=cwd, **kwargs)
 
         self.running = True
-        self.log.debug("litecoind started, waiting for RPC to come up")
+        self.log.debug("altcoind started, waiting for RPC to come up")
 
         if self.start_perf:
             self._start_perf()
 
     def wait_for_rpc_connection(self):
-        """Sets up an RPC connection to the litecoind process. Returns False if unable to connect."""
+        """Sets up an RPC connection to the altcoind process. Returns False if unable to connect."""
         # Poll at a rate of four times per second
         poll_per_s = 4
         for _ in range(poll_per_s * self.rpc_timeout):
             if self.process.poll() is not None:
                 raise FailedToStartError(self._node_msg(
-                    'litecoind exited with status {} during initialization'.format(self.process.returncode)))
+                    'altcoind exited with status {} during initialization'.format(self.process.returncode)))
             try:
                 rpc = get_rpc_proxy(
                     rpc_url(self.datadir, self.index, self.chain, self.rpchost),
@@ -276,7 +276,7 @@ class TestNode():
                 if "No RPC credentials" not in str(e):
                     raise
             time.sleep(1.0 / poll_per_s)
-        self._raise_assertion_error("Unable to connect to litecoind after {}s".format(self.rpc_timeout))
+        self._raise_assertion_error("Unable to connect to altcoind after {}s".format(self.rpc_timeout))
 
     def wait_for_cookie_credentials(self):
         """Ensures auth cookie credentials can be read, e.g. for testing CLI with -rpcwait before RPC connection is up."""
@@ -432,7 +432,7 @@ class TestNode():
 
         if not test_success('readelf -S {} | grep .debug_str'.format(shlex.quote(self.binary))):
             self.log.warning(
-                "perf output won't be very useful without debug symbols compiled into litecoind")
+                "perf output won't be very useful without debug symbols compiled into altcoind")
 
         output_path = tempfile.NamedTemporaryFile(
             dir=self.datadir,
@@ -473,11 +473,11 @@ class TestNode():
     def assert_start_raises_init_error(self, extra_args=None, expected_msg=None, match=ErrorMatch.FULL_TEXT, *args, **kwargs):
         """Attempt to start the node and expect it to raise an error.
 
-        extra_args: extra arguments to pass through to litecoind
-        expected_msg: regex that stderr should match when litecoind fails
+        extra_args: extra arguments to pass through to altcoind
+        expected_msg: regex that stderr should match when altcoind fails
 
-        Will throw if litecoind starts without an error.
-        Will throw if an expected_msg is provided and it does not match litecoind's stdout."""
+        Will throw if altcoind starts without an error.
+        Will throw if an expected_msg is provided and it does not match altcoind's stdout."""
         with tempfile.NamedTemporaryFile(dir=self.stderr_dir, delete=False) as log_stderr, \
              tempfile.NamedTemporaryFile(dir=self.stdout_dir, delete=False) as log_stdout:
             try:
@@ -486,7 +486,7 @@ class TestNode():
                 self.stop_node()
                 self.wait_until_stopped()
             except FailedToStartError as e:
-                self.log.debug('litecoind failed to start: %s', e)
+                self.log.debug('altcoind failed to start: %s', e)
                 self.running = False
                 self.process = None
                 # Check stderr for expected message
@@ -507,9 +507,9 @@ class TestNode():
                                 'Expected message "{}" does not fully match stderr:\n"{}"'.format(expected_msg, stderr))
             else:
                 if expected_msg is None:
-                    assert_msg = "litecoind should have exited with an error"
+                    assert_msg = "altcoind should have exited with an error"
                 else:
-                    assert_msg = "litecoind should have exited with expected error " + expected_msg
+                    assert_msg = "altcoind should have exited with expected error " + expected_msg
                 self._raise_assertion_error(assert_msg)
 
     def add_p2p_connection(self, p2p_conn, *, wait_for_verack=True, **kwargs):

@@ -210,7 +210,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         fname_bitcoind = os.path.join(
             config["environment"]["BUILDDIR"],
             "src",
-            "litecoind" + config["environment"]["EXEEXT"],
+            "altcoind" + config["environment"]["EXEEXT"],
         )
         fname_bitcoincli = os.path.join(
             config["environment"]["BUILDDIR"],
@@ -446,7 +446,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         if versions is None:
             versions = [None] * num_nodes
         if binary is None:
-            binary = [get_bin_from_version(v, 'litecoind', self.options.bitcoind) for v in versions]
+            binary = [get_bin_from_version(v, 'altcoind', self.options.bitcoind) for v in versions]
         if binary_cli is None:
             binary_cli = [get_bin_from_version(v, 'litecoin-cli', self.options.bitcoincli) for v in versions]
         assert_equal(len(extra_confs), num_nodes)
@@ -484,7 +484,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
                     conf.write(conf_data.replace('[regtest]', ''))
 
     def start_node(self, i, *args, **kwargs):
-        """Start a litecoind"""
+        """Start a altcoind"""
 
         node = self.nodes[i]
 
@@ -515,12 +515,12 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
                 coverage.write_all_rpc_commands(self.options.coveragedir, node.rpc)
 
     def stop_node(self, i, expected_stderr='', wait=0):
-        """Stop a litecoind test node"""
+        """Stop a altcoind test node"""
         self.nodes[i].stop_node(expected_stderr, wait=wait)
         self.nodes[i].wait_until_stopped()
 
     def stop_nodes(self, wait=0):
-        """Stop multiple litecoind test nodes"""
+        """Stop multiple altcoind test nodes"""
         for node in self.nodes:
             # Issue RPC to stop nodes
             node.stop_node(wait=wait)

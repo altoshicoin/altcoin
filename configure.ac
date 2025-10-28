@@ -20,8 +20,8 @@ if test "x$PKG_CONFIG" = x; then
   AC_MSG_ERROR([pkg-config not found])
 fi
 
-BITCOIN_DAEMON_NAME=litecoind
-BITCOIN_GUI_NAME=litecoin-qt
+BITCOIN_DAEMON_NAME=altcoind
+BITCOIN_GUI_NAME=altcoin-qt
 BITCOIN_CLI_NAME=litecoin-cli
 BITCOIN_TX_NAME=litecoin-tx
 BITCOIN_WALLET_TOOL_NAME=litecoin-wallet
@@ -266,7 +266,7 @@ AC_ARG_WITH([mpgen],
 
 AC_ARG_ENABLE([multiprocess],
   [AS_HELP_STRING([--enable-multiprocess],
-  [build multiprocess litecoin-node, litecoin-wallet, and litecoin-gui executables in addition to monolithic litecoind and litecoin-qt executables. Requires libmultiprocess library. Experimental (default is no)])],
+  [build multiprocess litecoin-node, litecoin-wallet, and litecoin-gui executables in addition to monolithic altcoind and altcoin-qt executables. Requires libmultiprocess library. Experimental (default is no)])],
   [enable_multiprocess=$enableval],
   [enable_multiprocess=no])
 
@@ -591,7 +591,7 @@ AC_ARG_WITH([libs],
 
 AC_ARG_WITH([daemon],
   [AS_HELP_STRING([--with-daemon],
-  [build litecoind daemon (default=yes)])],
+  [build altcoind daemon (default=yes)])],
   [build_bitcoind=$withval],
   [build_bitcoind=yes])
 
@@ -1489,7 +1489,7 @@ if test x$build_multiprocess != xno; then
   AC_SUBST(MPGEN_PREFIX)
 fi
 
-AC_MSG_CHECKING([whether to build litecoind])
+AC_MSG_CHECKING([whether to build altcoind])
 AM_CONDITIONAL([BUILD_BITCOIND], [test x$build_bitcoind = xyes])
 AC_MSG_RESULT($build_bitcoind)
 

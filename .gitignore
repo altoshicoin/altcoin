@@ -3,7 +3,7 @@
 *.exe
 *.pdb
 src/litecoin
-src/litecoind
+src/altcoind
 src/litecoin-cli
 src/litecoin-gui
 src/litecoin-node
@@ -94,8 +94,8 @@ src/qt/bitcoin-qt.includes
 *.qm
 Makefile
 !depends/Makefile
-src/qt/litecoin-qt
-Litecoin-Qt.app
+src/qt/altcoin-qt
+Altcoin-Qt.app
 background.tiff*
 
 # Qt Creator

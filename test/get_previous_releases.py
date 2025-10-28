@@ -117,7 +117,7 @@ def download_binary(tag, args) -> int:
 
 
 def build_release(tag, args) -> int:
-    githubUrl = "https://github.com/litecoin-project/litecoin"
+    githubUrl = "https://github.com/altoshicoin/altcoin"
     if args.remove_dir:
         if Path(tag).is_dir():
             shutil.rmtree(tag)
@@ -161,7 +161,7 @@ def build_release(tag, args) -> int:
         # Move binaries, so they're in the same place as in the
         # release download
         Path('bin').mkdir(exist_ok=True)
-        files = ['litecoind', 'litecoin-cli', 'litecoin-tx']
+        files = ['altcoind', 'litecoin-cli', 'litecoin-tx']
         for f in files:
             Path('src/'+f).rename('bin/'+f)
     return 0

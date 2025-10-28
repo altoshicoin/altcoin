@@ -32,7 +32,7 @@ packages:
 - "binutils-riscv64-linux-gnu"
 - "g++-8-riscv64-linux-gnu"
 remotes:
-- "url": "https://github.com/litecoin-project/litecoin.git"
+- "url": "https://github.com/altoshicoin/altcoin.git"
   "dir": "litecoin"
 files: []
 script: |
@@ -142,12 +142,12 @@ script: |
     find . -name "lib*.la" -delete
     find . -name "lib*.a" -delete
     rm -rf ${DISTNAME}/lib/pkgconfig
-    # Litecoin: Delete libbitcoin from binary distribution for now, see #192
+    # Altcoin: Delete libbitcoin from binary distribution for now, see #192
     rm -rf ${DISTNAME:?}/lib/
     rm -rf ${DISTNAME}/include/
-    # Litecoin: ends
+    # Altcoin: ends
     find ${DISTNAME}/bin -type f -executable -print0 | xargs -0 -n1 -I{} ../contrib/devtools/split-debug.sh {} {} {}.dbg
-    # find ${DISTNAME}/lib -type f -print0 | xargs -0 -n1 -I{} ../contrib/devtools/split-debug.sh {} {} {}.dbg # Litecoin: see issue 192
+    # find ${DISTNAME}/lib -type f -print0 | xargs -0 -n1 -I{} ../contrib/devtools/split-debug.sh {} {} {}.dbg # Altcoin: see issue 192
     cp ../README.md ${DISTNAME}/
     find ${DISTNAME} -not -name "*.dbg" | sort | tar --mtime="$REFERENCE_DATETIME" --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ${OUTDIR}/${DISTNAME}-${i}.tar.gz
     find ${DISTNAME} -name "*.dbg" | sort | tar --mtime="$REFERENCE_DATETIME" --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ${OUTDIR}/${DISTNAME}-${i}-debug.tar.gz

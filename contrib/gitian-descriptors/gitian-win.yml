@@ -24,7 +24,7 @@ packages:
 - "ca-certificates"
 - "python3"
 remotes:
-- "url": "https://github.com/litecoin-project/litecoin.git"
+- "url": "https://github.com/altoshicoin/altcoin.git"
   "dir": "litecoin"
 files: []
 script: |
@@ -140,10 +140,10 @@ script: |
     mv ${DISTNAME}/bin/*.dll ${DISTNAME}/lib/
     find . -name "lib*.la" -delete
     find . -name "lib*.a" -delete
-    # Litecoin: Delete libbitcoin from binary distribution for now, see #192
+    # Altcoin: Delete libbitcoin from binary distribution for now, see #192
     rm -rf ${DISTNAME:?}/lib/
     rm -rf ${DISTNAME}/include/
-    # Litecoin: ends
+    # Altcoin: ends
     rm -rf ${DISTNAME}/lib/pkgconfig
     find ${DISTNAME}/bin -type f -executable -print0 | xargs -0 -n1 -I{} ../contrib/devtools/split-debug.sh {} {} {}.dbg
     # Litecon: find ${DISTNAME}/lib -type f -print0 | xargs -0 -n1 -I{} ../contrib/devtools/split-debug.sh {} {} {}.dbg

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ALLOW='litecoind|litecoin-cli|litecoin-tx|litecoin-wallet|litecoin-qt|litecoin-node|litecoin-gui|litecoin_splash|qt_argv|PACKAGE_URL|PACKAGE_BUGREPORT|PACKAGE_TARNAME|github.com/litecoin-project/litecoin|litecoin\.conf'
+ALLOW='altcoind|litecoin-cli|litecoin-tx|litecoin-wallet|altcoin-qt|litecoin-node|litecoin-gui|litecoin_splash|qt_argv|PACKAGE_URL|PACKAGE_BUGREPORT|PACKAGE_TARNAME|github.com/altoshicoin/altcoin|litecoin\.conf'
 
 TARGETS=(
   'src/rpc/**'

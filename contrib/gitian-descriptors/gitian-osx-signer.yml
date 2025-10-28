@@ -10,7 +10,7 @@ packages:
 - "xorriso"
 - "python3-pip"
 remotes:
-- "url": "https://github.com/litecoin-project/litecoin-detached-sigs.git"
+- "url": "https://github.com/altoshicoin/altcoin-detached-sigs.git"
   "dir": "signature"
 - "url": "https://github.com/achow101/signapple.git"
   "dir": "signapple"
@@ -43,7 +43,7 @@ script: |
   cd ..
 
   UNSIGNED_TARBALL=litecoin-osx-unsigned.tar.gz
-  UNSIGNED_APP=dist/Litecoin-Qt.app
+  UNSIGNED_APP=dist/Altcoin-Qt.app
   SIGNED=litecoin-osx-signed.dmg
 
   tar -xf ${UNSIGNED_TARBALL}
