@@ -1,4 +1,4 @@
-Litecoin Core version 0.21.2.1 is now available from:
+Altcoin Core version 0.21.2.1 is now available from:
 
  <https://download.litecoin.org/litecoin-0.21.2.1/>.
 
@@ -6,7 +6,7 @@ This includes a critical bug fix for upgraded wallets to receive via MWEB.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/litecoin-project/litecoin/issues>
+  <https://github.com/altoshicoin/altcoin/issues>
 
 To receive security and update notifications, please subscribe to:
 
