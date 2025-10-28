@@ -24,7 +24,7 @@ ReceiveRequestDialog::ReceiveRequestDialog(QWidget *parent) :
     model(nullptr)
 {
     ui->setupUi(this);
-    GUIUtil::handleCloseWindowShortcut(this);
+GUIUtil::handleCloseWindowShortcut(this);
 }
 
 ReceiveRequestDialog::~ReceiveRequestDialog()

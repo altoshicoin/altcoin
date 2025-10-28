@@ -13,12 +13,13 @@
 
 #include <amount.h>
 #include <QWidget>
-#include <QLabel>
 #include <QMainWindow>
 #include <QMap>
 #include <QPoint>
 #include <QSystemTrayIcon>
 #include <QResizeEvent>
+#include <QLabel>
+#include <QLocale>
 
 #ifdef Q_OS_MAC
 #include <qt/macos_appnap.h>
@@ -67,6 +68,9 @@ class ClickableProgressBar;
 class BitcoinGUI : public QMainWindow
 {
     Q_OBJECT
+private:
+    QLabel* m_syncPill = nullptr;
+    void updateSyncPill(double verificationProgress, int currentHeight);
 
 public:
     static const std::string DEFAULT_UIPLATFORM;
