@@ -1,5 +1,5 @@
 ---
-name: "litecoin-core-win-0.21"
+name: "altcoin-core-win-0.21"
 enable_cache: true
 distro: "ubuntu"
 suites:
@@ -25,7 +25,7 @@ packages:
 - "python3"
 remotes:
 - "url": "https://github.com/altoshicoin/altcoin.git"
-  "dir": "litecoin"
+  "dir": "Altcoin"
 files: []
 script: |
   set -e -o pipefail
@@ -95,7 +95,7 @@ script: |
   create_per-host_compiler_wrapper "2000-01-01 12:00:00"
   export PATH=${WRAP_DIR}:${PATH}
 
-  cd litecoin
+  cd Altcoin
   BASEPREFIX="${PWD}/depends"
   # Build dependencies for each host
   for i in $HOSTS; do

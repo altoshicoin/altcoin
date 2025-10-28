@@ -1,5 +1,5 @@
 ---
-name: "litecoin-dmg-signer"
+name: "altcoin-dmg-signer"
 distro: "ubuntu"
 suites:
 - "bionic"
@@ -16,7 +16,7 @@ remotes:
   "dir": "signapple"
   "commit": "0777ce58e61b0e6be753a5f524149d6d47905186"
 files:
-- "litecoin-osx-unsigned.tar.gz"
+- "altcoin-osx-unsigned.tar.gz"
 script: |
   set -e -o pipefail
 
@@ -42,9 +42,9 @@ script: |
   export PATH="$HOME/.local/bin":$PATH
   cd ..
 
-  UNSIGNED_TARBALL=litecoin-osx-unsigned.tar.gz
+  UNSIGNED_TARBALL=altcoin-osx-unsigned.tar.gz
   UNSIGNED_APP=dist/Altcoin-Qt.app
-  SIGNED=litecoin-osx-signed.dmg
+  SIGNED=altcoin-osx-signed.dmg
 
   tar -xf ${UNSIGNED_TARBALL}
   OSX_VOLNAME="$(cat osx_volname)"
