@@ -256,7 +256,7 @@
 #define PACKAGE_STRING "Altcoin Core 0.21.3"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "litecoin"
+#define PACKAGE_TARNAME "altcoin"
 
 /* Define to the home page for this package. */
 #define PACKAGE_URL "https://altoshi.org/"
