@@ -157,3 +157,5 @@ dist/
 # editor backups
 configure~
 *~
+
+.branding_backups/
