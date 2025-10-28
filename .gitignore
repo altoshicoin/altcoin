@@ -159,3 +159,8 @@ configure~
 *~
 
 .branding_backups/
+
+# branding helpers
+branding_hits.txt
+branding_files.txt
+docs_to_edit.txt
