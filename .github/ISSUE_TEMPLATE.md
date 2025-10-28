@@ -1,6 +1,6 @@
 <!-- This issue tracker is only for technical issues related to Altcoin Core.
 
-General litecoin questions and/or support requests and are best directed to the [litecointalk.io forums](https://litecointalk.io/).
+General litecoin questions and/or support requests and are best directed to the [altoshi.org forums](https://altoshi.org/).
 
 For reporting security issues, please contact the Altcoin developers on the #altcoin-dev Freenode IRC channel or alternatively you can email us at contact@altoshi.org.
 

@@ -38,7 +38,7 @@
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.litecoin.Altcoin-Qt</string>
+  <string>org.altcoin.Altcoin-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -46,10 +46,10 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.litecoin.LitecoinPayment</string>
+      <string>org.altcoin.AltcoinPayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>litecoin</string>
+        <string>altcoin</string>
       </array>
     </dict>
   </array>
