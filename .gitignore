@@ -164,3 +164,7 @@ configure~
 branding_hits.txt
 branding_files.txt
 docs_to_edit.txt
+
+# built binaries (do not commit)
+src/litecoind
+src/qt/litecoin-qt
