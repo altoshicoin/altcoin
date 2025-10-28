@@ -218,7 +218,7 @@ Hardening enables the following features:
 
     To test that you have built PIE executable, install scanelf, part of paxutils, and use:
 
-    	scanelf -e ./litecoin
+    	scanelf -e ./altcoin
 
     The output should contain:
 
@@ -232,7 +232,7 @@ Hardening enables the following features:
     executable without the non-executable stack protection.
 
     To verify that the stack is non-executable after compiling use:
-    `scanelf -e ./litecoin`
+    `scanelf -e ./altcoin`
 
     The output should contain:
 	STK/REL/PTL
@@ -264,7 +264,7 @@ This example lists the steps necessary to setup and build a command line only, n
 
     pacman -S git base-devel boost libevent python
     git clone https://github.com/altoshicoin/altcoin.git
-    cd litecoin/
+    cd altcoin/
     ./autogen.sh
     ./configure --disable-wallet --without-gui --without-miniupnpc
     make check

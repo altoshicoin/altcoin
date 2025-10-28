@@ -67,7 +67,7 @@ brew install berkeley-db4
 1. Clone the Altcoin Core source code:
     ```shell
     git clone https://github.com/altoshicoin/altcoin
-    cd litecoin
+    cd altcoin
     ```
 
 2.  Build Altcoin Core:
@@ -124,9 +124,9 @@ tail -f $HOME/Library/Application\ Support/Altcoin/debug.log
 
 ## Other commands:
 ```shell
-./src/altcoind -daemon      # Starts the litecoin daemon.
-./src/litecoin-cli --help    # Outputs a list of command-line options.
-./src/litecoin-cli help      # Outputs a list of RPC commands when the daemon is running.
+./src/altcoind -daemon      # Starts the altcoin daemon.
+./src/altcoin-cli --help    # Outputs a list of command-line options.
+./src/altcoin-cli help      # Outputs a list of RPC commands when the daemon is running.
 ```
 
 ## Notes

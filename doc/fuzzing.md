@@ -6,7 +6,7 @@ To quickly get started fuzzing Altcoin Core using [libFuzzer](https://llvm.org/d
 
 ```sh
 $ git clone https://github.com/altoshicoin/altcoin
-$ cd litecoin/
+$ cd altcoin/
 $ ./autogen.sh
 $ CC=clang CXX=clang++ ./configure --enable-fuzz --with-sanitizers=address,fuzzer,undefined
 # macOS users: If you have problem with this step then make sure to read "macOS hints for
@@ -116,7 +116,7 @@ To quickly get started fuzzing Altcoin Core using [`afl-fuzz`](https://github.co
 
 ```sh
 $ git clone https://github.com/altoshicoin/altcoin
-$ cd litecoin/
+$ cd altcoin/
 $ git clone https://github.com/google/afl
 $ make -C afl/
 $ make -C afl/llvm_mode/

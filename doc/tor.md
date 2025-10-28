@@ -1,4 +1,4 @@
-# TOR SUPPORT IN LITECOIN
+# TOR SUPPORT IN ALTCOIN
 
 It is possible to run Altcoin Core as a Tor onion service, and connect to such services.
 
@@ -62,7 +62,7 @@ The directory can be different of course, but virtual port numbers should be equ
 your altcoind's P2P listen port (9333 by default), and target addresses and ports
 should be equal to binding address and port for inbound Tor connections (127.0.0.1:9334 by default).
 
-	-externalip=X   You can tell litecoin about its publicly reachable addresses using
+	-externalip=X   You can tell altcoin about its publicly reachable addresses using
 	                this option, and this can be an onion address. Given the above
 	                configuration, you can find your onion address in
 	                /var/lib/tor/altcoin-service/hostname. For connections
