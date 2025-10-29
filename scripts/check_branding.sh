@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ALLOW='altcoind|altcoin-cli|altcoin-tx|altcoin-wallet|altcoin-qt|altcoin-node|altcoin-gui|altcoin_splash|qt_argv|PACKAGE_URL|PACKAGE_BUGREPORT|PACKAGE_TARNAME|github.com/altoshicoin/altcoin|altcoin.conf|litecoin.conf|bltcb'
+ALLOW='altcoind|altcoin-cli|altcoin-tx|altcoin-wallet|altcoin-qt|altcoin-node|altcoin-gui|altcoin_splash|qt_argv|PACKAGE_URL|PACKAGE_BUGREPORT|PACKAGE_TARNAME|github.com/altoshicoin/altcoin|altcoin.conf|litecoin.conf|\bltc\b'
 
 TARGETS=(
   'src/rpc/**'
