@@ -105,7 +105,7 @@ struct CoinEligibilityFilter
 };
 
 enum class InputPreference {
-    // Use LTC and MWEB inputs (MIXED)
+    // Use ALT and MWEB inputs (MIXED)
     ANY,
     // Only use MWEB inputs (used when explicitly pegging-out)
     MWEB_ONLY,

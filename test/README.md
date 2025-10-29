@@ -8,8 +8,8 @@ This directory contains the following sets of tests:
 - [functional](/test/functional) which test the functionality of
 altcoind and altcoin-qt by interacting with them through the RPC and P2P
 interfaces.
-- [util](/test/util) which tests the litecoin utilities, currently only
-litecoin-tx.
+- [util](/test/util) which tests the altcoin utilities, currently only
+altcoin-tx.
 - [lint](/test/lint/) which perform various static analysis checks.
 
 The util tests are run as part of `make check` target. The functional

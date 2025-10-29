@@ -43,7 +43,7 @@ TEST_EXIT_PASSED = 0
 TEST_EXIT_FAILED = 1
 TEST_EXIT_SKIPPED = 77
 
-TMPDIR_PREFIX = "litecoin_func_test_"
+TMPDIR_PREFIX = "altcoin_func_test_"
 
 
 class SkipTest(Exception):
@@ -153,9 +153,9 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         previous_releases_path = os.getenv("PREVIOUS_RELEASES_DIR") or os.getcwd() + "/releases"
         parser = argparse.ArgumentParser(usage="%(prog)s [options]")
         parser.add_argument("--nocleanup", dest="nocleanup", default=False, action="store_true",
-                            help="Leave litecoinds and test.* datadir on exit or error")
+                            help="Leave altcoinds and test.* datadir on exit or error")
         parser.add_argument("--noshutdown", dest="noshutdown", default=False, action="store_true",
-                            help="Don't stop litecoinds after the test execution")
+                            help="Don't stop altcoinds after the test execution")
         parser.add_argument("--cachedir", dest="cachedir", default=os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + "/../../cache"),
                             help="Directory for caching pregenerated datadirs (default: %(default)s)")
         parser.add_argument("--tmpdir", dest="tmpdir", help="Root directory for datadirs")
@@ -215,7 +215,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         fname_bitcoincli = os.path.join(
             config["environment"]["BUILDDIR"],
             "src",
-            "litecoin-cli" + config["environment"]["EXEEXT"],
+            "altcoin-cli" + config["environment"]["EXEEXT"],
         )
         self.options.bitcoind = os.getenv("BITCOIND", default=fname_bitcoind)
         self.options.bitcoincli = os.getenv("BITCOINCLI", default=fname_bitcoincli)
@@ -279,7 +279,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         else:
             for node in self.nodes:
                 node.cleanup_on_exit = False
-            self.log.info("Note: litecoinds were not stopped and may still be running")
+            self.log.info("Note: altcoinds were not stopped and may still be running")
 
         should_clean_up = (
             not self.options.nocleanup and
@@ -448,7 +448,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         if binary is None:
             binary = [get_bin_from_version(v, 'altcoind', self.options.bitcoind) for v in versions]
         if binary_cli is None:
-            binary_cli = [get_bin_from_version(v, 'litecoin-cli', self.options.bitcoincli) for v in versions]
+            binary_cli = [get_bin_from_version(v, 'altcoin-cli', self.options.bitcoincli) for v in versions]
         assert_equal(len(extra_confs), num_nodes)
         assert_equal(len(extra_args), num_nodes)
         assert_equal(len(versions), num_nodes)
@@ -495,7 +495,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
             coverage.write_all_rpc_commands(self.options.coveragedir, node.rpc)
 
     def start_nodes(self, extra_args=None, *args, **kwargs):
-        """Start multiple litecoinds"""
+        """Start multiple altcoinds"""
 
         if extra_args is None:
             extra_args = [None] * self.num_nodes

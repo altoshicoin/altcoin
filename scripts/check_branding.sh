@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ALLOW='altcoind|litecoin-cli|litecoin-tx|litecoin-wallet|altcoin-qt|litecoin-node|litecoin-gui|litecoin_splash|qt_argv|PACKAGE_URL|PACKAGE_BUGREPORT|PACKAGE_TARNAME|github.com/altoshicoin/altcoin|litecoin\.conf'
+ALLOW='altcoind|altcoin-cli|altcoin-tx|altcoin-wallet|altcoin-qt|altcoin-node|altcoin-gui|altcoin_splash|qt_argv|PACKAGE_URL|PACKAGE_BUGREPORT|PACKAGE_TARNAME|github.com/altoshicoin/altcoin|altcoin.conf|litecoin.conf|bltcb'
 
 TARGETS=(
   'src/rpc/**'
@@ -17,6 +17,8 @@ TARGETS=(
 )
 
 RG_ARGS=(); for t in "${TARGETS[@]}"; do RG_ARGS+=(-g "$t"); done
+RG_ARGS+=( --glob '!test/**' --glob '!src/test/**' --glob '!src/libmw/test/**' --glob '!src/qt/test/**' --glob '!src/qt/forms.backup/**' --glob '!src/Makefile.test.include' --glob '!src/Makefile.qttest.include' )
+RG_ARGS+=( --glob '!test/**' --glob '!src/test/**' --glob '!src/libmw/test/**' --glob '!src/qt/test/**' --glob '!src/qt/forms.backup/**' )
 tmp=/tmp/branding_leaks.txt; : > "$tmp"
 
 set +e

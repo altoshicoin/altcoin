@@ -2765,7 +2765,7 @@ static RPCHelpMan loadwallet()
 {
     return RPCHelpMan{"loadwallet",
                 "\nLoads a wallet from a wallet file or directory."
-                "\nNote that all wallet command-line options used when starting litecoind will be"
+                "\nNote that all wallet command-line options used when starting altcoind will be"
                 "\napplied to the new wallet (eg -rescan, etc).\n",
                 {
                     {"filename", RPCArg::Type::STR, RPCArg::Optional::NO, "The wallet directory or .dat file."},
@@ -3634,7 +3634,7 @@ static RPCHelpMan bumpfee_helper(std::string method_name)
 
     if (pwallet->IsWalletFlagSet(WALLET_FLAG_DISABLE_PRIVATE_KEYS) && !want_psbt) {
         if (!pwallet->chain().rpcEnableDeprecated("bumpfee")) {
-            throw JSONRPCError(RPC_METHOD_DEPRECATED, "Using bumpfee with wallets that have private keys disabled is deprecated. Use psbtbumpfee instead or restart litecoind with -deprecatedrpc=bumpfee. This functionality will be removed in 0.22");
+            throw JSONRPCError(RPC_METHOD_DEPRECATED, "Using bumpfee with wallets that have private keys disabled is deprecated. Use psbtbumpfee instead or restart altcoind with -deprecatedrpc=bumpfee. This functionality will be removed in 0.22");
         }
         want_psbt = true;
     }

@@ -120,7 +120,7 @@ void Transact::AddMWEBTx(InProcessTx& new_tx)
         }
     }
 
-    // Lookup the change paid on the LTC side
+    // Lookup the change paid on the ALT side
     CAmount ltc_change = 0;
     if (new_tx.change_position != -1) {
         assert(new_tx.tx.vout.size() > (size_t)new_tx.change_position);
