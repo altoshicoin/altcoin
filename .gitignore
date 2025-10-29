@@ -171,3 +171,15 @@ src/qt/altcoin-qt
 
 # branding helpers
 top_to_edit.txt
+# Altcoin build outputs (binaries & tests)
+src/altcoin
+src/altcoin-cli
+src/altcoin-gui
+src/altcoin-node
+src/altcoin-tx
+src/altcoin-wallet
+src/altcoind
+src/qt/altcoin-qt
+src/qt/test/test_altcoin-qt
+bench/bench_altcoin
+test/test_altcoin
