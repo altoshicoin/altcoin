@@ -600,19 +600,22 @@ std::string LicenseInfo()
 {
     const std::string URL_SOURCE_CODE = "<https://github.com/altoshicoin/altcoin>";
 
-    return CopyrightHolders(strprintf(_("Copyright (C) %i-%i").translated, 2011, COPYRIGHT_YEAR) + " ") + "\n" +
-           "\n" +
-           strprintf(_("Please contribute if you find %s useful. "
-                       "Visit %s for further information about the software.").translated,
-               PACKAGE_NAME, "<" PACKAGE_URL ">") +
-           "\n" +
-           strprintf(_("The source code is available from %s.").translated,
-               URL_SOURCE_CODE) +
-           "\n" +
-           "\n" +
-           _("This is experimental software.").translated + "\n" +
-           strprintf(_("Distributed under the MIT software license, see the accompanying file %s or %s").translated, "COPYING", "<https://opensource.org/licenses/MIT>") +
-           "\n";
+     return CopyrightHolders(strprintf(_("Copyright (C) %i").translated, 2025) + " ") + "\n" +
+        _("Copyright (C) 2011-2024 The Litecoin Core developers").translated + "\n" +
+        _("Copyright (C) 2009-2024 The Bitcoin Core developers").translated + "\n" +
+        "\n" +
+        strprintf(_("Please contribute if you find %s useful. "
+                    "Visit %s for further information about the software.").translated,
+            PACKAGE_NAME, "<" PACKAGE_URL ">") +
+        "\n" +
+        strprintf(_("The source code is available from %s.").translated,
+            URL_SOURCE_CODE) +
+        "\n" +
+        "\n" +
+        _("This is experimental software.").translated + "\n" +
+        strprintf(_("Distributed under the MIT software license, see the accompanying file %s or %s.").translated,
+            "COPYING", "<https://opensource.org/licenses/MIT>") +
+        "\n";
 }
 
 static bool fHaveGenesis = false;
