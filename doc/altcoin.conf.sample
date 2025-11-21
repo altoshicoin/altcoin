@@ -1,0 +1,46 @@
+# Altcoin Core sample configuration file
+# Place this as:
+#   Linux : ~/.altcoin/altcoin.conf
+#   Windows: %APPDATA%\Altcoin\altcoin.conf
+
+# ---- Basic node settings ----
+txindex=0
+
+# ---- P2P network ----
+listen=1
+port=11500
+
+# Use DNS seeds plus your public bootstrap node
+dnsseed=1
+addnode=node1.altoshi.org:11500
+
+# ---- Small-chain startup settings ----
+# Altcoin is a new chain, so we relax some defaults to avoid being stuck
+# in "initial sync" waiting for a huge Litecoin-style history.
+minimumchainwork=0
+assumevalid=0
+maxtipage=999999999
+
+logtimestamps=1
+
+# ---- Advanced: RPC / solo mining (optional) ----
+# For normal wallet use (altcoin-qt) you do NOT need to enable RPC.
+# This section is only for solo mining / external tools.
+#
+# To allow local or LAN miners:
+#
+# 1) Generate an rpcauth line using rpcauth.py (on a trusted machine):
+#       python3 share/rpcauth/rpcauth.py altminer
+#    Copy the produced rpcauth=... line below.
+#
+# 2) Uncomment the lines below and adjust networks as needed.
+#
+# server=1
+# rpcauth=altminer:PASTE_LONG_HASH_FROM_RPCAUTH_HERE
+# rpcbind=0.0.0.0
+# rpcallowip=127.0.0.1
+# rpcallowip=10.0.2.0/24        # VirtualBox NAT
+# rpcallowip=192.168.0.0/16     # Home LAN
+#
+# Never open RPC on the public internet without a firewall.
+
