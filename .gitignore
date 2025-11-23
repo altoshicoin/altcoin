@@ -184,3 +184,13 @@ src/qt/test/test_altcoin-qt
 bench/bench_altcoin
 test/test_altcoin
 build-w64/
+
+# Altcoin Core local binaries (do not commit)
+src/altcoind
+src/altcoin-cli
+src/altcoin-tx
+src/altcoin-wallet
+src/qt/altcoin-qt
+
+# Local build artifacts for cross-compile etc.
+build-w64/
