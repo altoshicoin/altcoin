@@ -104,15 +104,16 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 32-bit integer with any alignment.
          */
-        pchMessageStart[0] = 0xc3;
-        pchMessageStart[1] = 0xfa;
-        pchMessageStart[2] = 0xbc;
-        pchMessageStart[3] = 0xef;
-        nDefaultPort = 18433;
+        pchMessageStart[0] = 0xa1;
+        pchMessageStart[1] = 0xd1;
+        pchMessageStart[2] = 0xc0;
+        pchMessageStart[3] = 0x1e;
+        nDefaultPort = 11555;
         nPruneAfterHeight = 100000;
         m_assumed_blockchain_size = 40;
         m_assumed_chain_state_size = 2;
 
+        // Fixed Altcoin mainnet genesis (scrypt PoW)
         genesis = CreateGenesisBlock(1760634873, 659637, 0x1e0ffff0, 1, (52 * COIN) + 38095238);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0xfb27044548436f5a34743d54261d79b6a37331152d5763c75a58b1c90f1d35fc"));
@@ -125,8 +126,8 @@ public:
         // release ASAP to avoid it where possible.
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,23);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
-        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,50);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,63);
+        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,64);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,176);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x0A, 0x2D, 0xB4, 0x7E}; // ALT mainnet ext pub
         base58Prefixes[EXT_SECRET_KEY] = {0x0A, 0x2D, 0xAE, 0x42}; // ALT mainnet ext prv

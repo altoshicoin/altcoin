@@ -183,3 +183,4 @@ src/qt/altcoin-qt
 src/qt/test/test_altcoin-qt
 bench/bench_altcoin
 test/test_altcoin
+build-w64/
