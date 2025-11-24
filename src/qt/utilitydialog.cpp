@@ -1,4 +1,3 @@
-#include <QRegularExpression>
 // Copyright (c) 2011-2020 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -14,50 +13,40 @@
 #include <qt/guiutil.h>
 
 #include <clientversion.h>
-#include <init.h>
 #include <util/system.h>
 #include <util/strencodings.h>
 
+#include <cassert>
 #include <stdio.h>
 
 #include <QCloseEvent>
 #include <QLabel>
 #include <QMainWindow>
-#include <QRegExp>
 #include <QTextCursor>
-#include <QTextTable>
 #include <QVBoxLayout>
 
 /** "Help message" or "About" dialog box */
-HelpMessageDialog::HelpMessageDialog(QWidget *parent, bool about) :
+HelpMessageDialog::HelpMessageDialog(QWidget* parent, bool about) :
     QDialog(parent),
     ui(new Ui::HelpMessageDialog)
 {
     ui->setupUi(this);
 
-    QString version = QString{PACKAGE_NAME} + " " + tr("version") + " " + QString::fromStdString(FormatFullVersion());
+    // Simple full version string from the core
+    const QString version = QString::fromStdString(FormatFullVersion());
 
-    if (about)
-    {
+    if (about) {
         setWindowTitle(tr("About %1").arg(PACKAGE_NAME));
 
-        std::string licenseInfo = LicenseInfo();
-        /// HTML-format the license message from the core
-        QString licenseInfoHTML = QString::fromStdString(LicenseInfo());
-        // Make URLs clickable
-        QRegExp uri("<(.*)>", Qt::CaseSensitive, QRegExp::RegExp2);
-        uri.setMinimal(true); // use non-greedy matching
-        licenseInfoHTML.replace(uri, "<a href=\"\\1\">\\1</a>");
-        // Replace newlines with HTML breaks
-        licenseInfoHTML.replace("\n", "<br>");
-
         ui->aboutMessage->setTextFormat(Qt::RichText);
-        ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        text = version + "\n" + QString::fromStdString(FormatParagraph(licenseInfo));
         ui->aboutMessage->setOpenExternalLinks(true);
-        QString cleanVersion = version; cleanVersion.replace(QRegularExpression("-[0-9a-fA-F]{7,}(?:-dirty)?$"), "");
+        ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+        // Keep this as the "text" used by other parts of the dialog
+        text = version;
+
         ui->aboutMessage->setText(
-            cleanVersion + "<br><br>" + QStringLiteral(
+            version + "<br><br>" + QStringLiteral(
                 "Copyright (C) 2025 The Altcoin Core developers<br>"
                 "Copyright (C) 2009-2024 The Bitcoin Core developers<br><br>"
                 "Please contribute if you find Altcoin Core useful. "
@@ -65,62 +54,27 @@ HelpMessageDialog::HelpMessageDialog(QWidget *parent, bool about) :
                 "The source code is available from <a style=\"color:#e36a6a;\" href=\"https://github.com/altoshicoin/altcoin\">https://github.com/altoshicoin/altcoin</a>"
             )
         );
-        {
-            QString _html = ui->aboutMessage->text();
-            _html.replace(QRegularExpression("(version\\s+v?[0-9][^<\\s]*)-[0-9a-f]{7,}(?:-dirty)?"), "\\1");
-            ui->aboutMessage->setText(_html);
-        }
+
         QPalette pal = ui->aboutMessage->palette();
         pal.setColor(QPalette::Link, QColor("#e36a6a"));
         pal.setColor(QPalette::LinkVisited, QColor("#e36a6a"));
         ui->aboutMessage->setPalette(pal);
         ui->aboutMessage->setWordWrap(true);
+
         ui->helpMessage->setVisible(false);
     } else {
-        setWindowTitle(tr("Command-line options"));
-        QString header = "Usage:  altcoin-qt [command-line options]                     \n";
-        QTextCursor cursor(ui->helpMessage->document());
-        cursor.insertText(version);
-        cursor.insertBlock();
-        cursor.insertText(header);
-        cursor.insertBlock();
+        setWindowTitle(tr("Altcoin Core - Command-line options"));
 
-        std::string strUsage = gArgs.GetHelpMessage();
-        QString coreOptions = QString::fromStdString(strUsage);
+        const QString header = QStringLiteral("Usage:  altcoin-qt [command-line options]\n");
+
+        // Build a simple plain-text help message instead of the old table layout
+        const std::string strUsage = gArgs.GetHelpMessage();
+        const QString coreOptions = QString::fromStdString(strUsage);
+
         text = version + "\n\n" + header + "\n" + coreOptions;
 
-        QTextTableFormat tf;
-        tf.setBorderStyle(QTextFrameFormat::BorderStyle_None);
-        tf.setCellPadding(2);
-        QVector<QTextLength> widths;
-        widths << QTextLength(QTextLength::PercentageLength, 35);
-        widths << QTextLength(QTextLength::PercentageLength, 65);
-        tf.setColumnWidthConstraints(widths);
+        ui->helpMessage->setPlainText(text);
 
-        QTextCharFormat bold;
-        bold.setFontWeight(QFont::Bold);
-
-        for (const QString &line : coreOptions.split("\n")) {
-            if (line.startsWith("  -"))
-            {
-                cursor.currentTable()->appendRows(1);
-                cursor.movePosition(QTextCursor::PreviousCell);
-                cursor.movePosition(QTextCursor::NextRow);
-                cursor.insertText(line.trimmed());
-                cursor.movePosition(QTextCursor::NextCell);
-            } else if (line.startsWith("   ")) {
-                cursor.insertText(line.trimmed()+' ');
-            } else if (line.size() > 0) {
-                //Title of a group
-                if (cursor.currentTable())
-                    cursor.currentTable()->appendRows(1);
-                cursor.movePosition(QTextCursor::Down);
-                cursor.insertText(line.trimmed(), bold);
-                cursor.insertTable(1, 2, tf);
-            }
-        }
-
-        ui->helpMessage->moveCursor(QTextCursor::Start);
         ui->scrollArea->setVisible(false);
         ui->aboutLogo->setVisible(false);
     }
@@ -133,21 +87,10 @@ HelpMessageDialog::~HelpMessageDialog()
     delete ui;
 }
 
-void HelpMessageDialog::printToConsole()
-{
-    // On other operating systems, the expected action is to print the message to the console.
-    tfm::format(std::cout, "%s\n", qPrintable(text));
-}
-
 void HelpMessageDialog::showOrPrint()
 {
-#if defined(WIN32)
-    // On Windows, show a message box, as there is no stderr/stdout in windowed applications
+    // In the Qt GUI build, just show the dialog.
     exec();
-#else
-    // On other operating systems, print help text to console
-    printToConsole();
-#endif
 }
 
 void HelpMessageDialog::on_okButton_accepted()
@@ -155,16 +98,19 @@ void HelpMessageDialog::on_okButton_accepted()
     close();
 }
 
-
-/** "Shutdown" window */
-ShutdownWindow::ShutdownWindow(QWidget *parent, Qt::WindowFlags f):
+// Simple shutdown window shown while the node is shutting down.
+ShutdownWindow::ShutdownWindow(QWidget* parent, Qt::WindowFlags f) :
     QWidget(parent, f)
 {
-    QVBoxLayout *layout = new QVBoxLayout();
-    layout->addWidget(new QLabel(
-        tr("%1 is shutting down...").arg(PACKAGE_NAME) + "<br /><br />" +
-        tr("Do not shut down the computer until this window disappears.")));
-    setLayout(layout);
+    setWindowTitle(tr("Altcoin Core is shutting down"));
+
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    QLabel* label = new QLabel(
+        tr("Altcoin Core is shutting down...\n"
+           "Do not shut down the computer until this window disappears."),
+        this);
+    label->setWordWrap(true);
+    layout->addWidget(label);
 
     GUIUtil::handleCloseWindowShortcut(this);
 }
@@ -174,17 +120,19 @@ QWidget* ShutdownWindow::showShutdownWindow(QMainWindow* window)
     assert(window != nullptr);
 
     // Show a simple window indicating shutdown status
-    QWidget *shutdownWindow = new ShutdownWindow();
+    QWidget* shutdownWindow = new ShutdownWindow(window, Qt::Window);
     shutdownWindow->setWindowTitle(window->windowTitle());
 
     // Center shutdown window at where main window was
     const QPoint global = window->mapToGlobal(window->rect().center());
-    shutdownWindow->move(global.x() - shutdownWindow->width() / 2, global.y() - shutdownWindow->height() / 2);
+    shutdownWindow->move(global.x() - shutdownWindow->width() / 2,
+                         global.y() - shutdownWindow->height() / 2);
     shutdownWindow->show();
     return shutdownWindow;
 }
 
-void ShutdownWindow::closeEvent(QCloseEvent *event)
+void ShutdownWindow::closeEvent(QCloseEvent* event)
 {
     event->ignore();
 }
+

@@ -773,7 +773,8 @@ fs::path GetConfigFile(const std::string& confPath)
         const bool is_default_alt = p.has_filename() && p.filename().string() == "altcoin.conf";
         if (is_default_alt) {
             fs::path legacy = p;
-            legacy.replace_filename("litecoin.conf");
+            legacy.remove_filename();
+	    legacy /= "litecoin.conf";
             if (fs::exists(legacy)) {
                 LogPrintf("Using config file (legacy): %s\n", legacy.string());
                 return legacy;

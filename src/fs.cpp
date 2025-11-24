@@ -6,6 +6,7 @@
 
 #ifndef WIN32
 #include <cstring>
+#include <limits>
 #include <fcntl.h>
 #include <string>
 #include <sys/file.h>
@@ -120,7 +121,7 @@ bool FileLock::TryLock()
         return false;
     }
     _OVERLAPPED overlapped = {0};
-    if (!LockFileEx(hFile, LOCKFILE_EXCLUSIVE_LOCK | LOCKFILE_FAIL_IMMEDIATELY, 0, std::numeric_limits<DWORD>::max(), std::numeric_limits<DWORD>::max(), &overlapped)) {
+    if (!LockFileEx(hFile, LOCKFILE_EXCLUSIVE_LOCK | LOCKFILE_FAIL_IMMEDIATELY, 0, MAXDWORD, MAXDWORD, &overlapped)) {
         reason = GetErrorReason();
         return false;
     }
