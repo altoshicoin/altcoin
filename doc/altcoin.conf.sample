@@ -10,10 +10,6 @@ txindex=0
 listen=1
 port=11500
 
-# Use DNS seeds plus your public bootstrap node
-dnsseed=1
-addnode=node1.altoshi.org:11500
-
 # ---- Small-chain startup settings ----
 # Altcoin is a new chain, so we relax some defaults to avoid being stuck
 # in "initial sync" waiting for a huge Litecoin-style history.
