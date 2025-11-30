@@ -3231,10 +3231,8 @@ void PeerManager::ProcessMessage(CNode& pfrom, const std::string& msg_type, CDat
         }
 
         LOCK(cs_main);
-        if (::ChainstateActive().IsInitialBlockDownload() && !pfrom.HasPermission(PF_DOWNLOAD)) {
-            LogPrint(BCLog::NET, "Ignoring getheaders from peer=%d because node is in initial block download\n", pfrom.GetId());
-            return;
-        }
+        // Allow GETHEADERS during IBD. On small/quiet networks, gating this can stall initial sync
+        // until a new block is mined.
 
         CNodeState *nodestate = State(pfrom.GetId());
         const CBlockIndex* pindex = nullptr;

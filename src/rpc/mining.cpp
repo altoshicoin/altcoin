@@ -726,9 +726,14 @@ static RPCHelpMan getblocktemplate()
         // TODO: Maybe recheck connections/IBD and (if something wrong) send an expires-immediately template to stop miners?
     }
 
-    // GBT must be called with 'segwit' and 'mweb' sets in the rules
-    if (setClientRules.count("segwit") != 1 || setClientRules.count("mweb") != 1) {
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "getblocktemplate must be called with the segwit & mweb rule sets (call with {\"rules\": [\"mweb\", \"segwit\"]})");
+    // GBT should be called with 'segwit' and 'mweb' in the rules.
+    // For compatibility with miners that only send rules:["segwit"], assume "mweb" when omitted.
+    if (setClientRules.count("segwit") != 1) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "getblocktemplate must be called with the segwit rule set (call with {\"rules\": [\"segwit\", \"mweb\"]})");
+    }
+    if (setClientRules.count("mweb") != 1) {
+        LogPrint(BCLog::RPC, "getblocktemplate called without mweb rule set; assuming mweb for compatibility\n");
+        setClientRules.insert("mweb");
     }
 
     // Update block
