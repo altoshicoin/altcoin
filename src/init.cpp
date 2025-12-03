@@ -566,9 +566,28 @@ void SetupServerArgs(NodeContext& node)
     argsman.AddArg("-whitelistrelay", strprintf("Add 'relay' permission to whitelisted inbound peers with default permissions. This will accept relayed transactions even when not relaying transactions (default: %d)", DEFAULT_WHITELISTRELAY), ArgsManager::ALLOW_ANY, OptionsCategory::NODE_RELAY);
 
 
-    argsman.AddArg("-blockmaxweight=<n>", strprintf("Set maximum BIP141 block weight (default: %d)", DEFAULT_BLOCK_MAX_WEIGHT), ArgsManager::ALLOW_ANY, OptionsCategory::BLOCK_CREATION);
-    argsman.AddArg("-blockmintxfee=<amt>", strprintf("Set lowest fee rate (in %s/kB) for transactions to be included in block creation. (default: %s)", CURRENCY_UNIT, FormatMoney(DEFAULT_BLOCK_MIN_TX_FEE)), ArgsManager::ALLOW_ANY, OptionsCategory::BLOCK_CREATION);
-    argsman.AddArg("-blockversion=<n>", "Override block version to test forking scenarios", ArgsManager::ALLOW_ANY | ArgsManager::DEBUG_ONLY, OptionsCategory::BLOCK_CREATION);
+    argsman.AddArg("-blockmaxweight=<n>",
+        strprintf("Set maximum BIP141 block weight (default: %d)", DEFAULT_BLOCK_MAX_WEIGHT),
+        ArgsManager::ALLOW_ANY,
+        OptionsCategory::BLOCK_CREATION);
+
+    argsman.AddArg("-allowminingduringibd",
+        "Allow getblocktemplate to be used while the node is in initial block download (IBD). "
+        "Use only for private networks or very early-chain bootstrap; not recommended for public mainnet.",
+        ArgsManager::ALLOW_ANY,
+        OptionsCategory::BLOCK_CREATION);
+
+    argsman.AddArg("-blockmintxfee=<amt>",
+        strprintf("Set lowest fee rate (in %s/kB) for transactions to be included in block creation in %s (default: %s)",
+                  CURRENCY_UNIT, CURRENCY_UNIT, FormatMoney(DEFAULT_BLOCK_MIN_TX_FEE)),
+        ArgsManager::ALLOW_ANY,
+        OptionsCategory::BLOCK_CREATION);
+
+    argsman.AddArg("-blockversion=<n>",
+        "Override block version to test forking scenarios",
+        ArgsManager::ALLOW_ANY | ArgsManager::DEBUG_ONLY,
+        OptionsCategory::BLOCK_CREATION);
+
 
     argsman.AddArg("-rest", strprintf("Accept public REST requests (default: %u)", DEFAULT_REST_ENABLE), ArgsManager::ALLOW_ANY, OptionsCategory::RPC);
     argsman.AddArg("-rpcallowip=<ip>", "Allow JSON-RPC connections from specified source. Valid for <ip> are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times", ArgsManager::ALLOW_ANY, OptionsCategory::RPC);

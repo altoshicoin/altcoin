@@ -512,6 +512,23 @@ static std::string gbt_vb_name(const Consensus::DeploymentPos pos) {
     return s;
 }
 
+static bool AllowMiningDuringIBD()
+{
+    const CChainParams& chainparams = Params();
+
+    // Always allow in regtest / MineBlocksOnDemand mode.
+    if (chainparams.MineBlocksOnDemand()) {
+        return true;
+    }
+
+    // Optional override flag, for private / bootstrap networks only.
+    if (gArgs.GetBoolArg("-allowminingduringibd", false)) {
+        return true;
+    }
+
+    return false;
+}
+
 static RPCHelpMan getblocktemplate()
 {
     return RPCHelpMan{"getblocktemplate",
@@ -673,8 +690,15 @@ static RPCHelpMan getblocktemplate()
     if (node.connman->GetNodeCount(CConnman::CONNECTIONS_ALL) == 0)
         throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, PACKAGE_NAME " is not connected!");
 
-    if (::ChainstateActive().IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, PACKAGE_NAME " is in initial sync and waiting for blocks...");
+    // NEW: allow override for IBD when flag/regtest is active
+    if (::ChainstateActive().IsInitialBlockDownload() && !AllowMiningDuringIBD()) {
+        throw JSONRPCError(
+            RPC_CLIENT_IN_INITIAL_DOWNLOAD,
+            std::string(PACKAGE_NAME) + " is in initial sync and waiting for blocks. "
+            "Mining is disabled during initial block download. "
+            "If this is a private or early-bootstrap network, restart the node with -allowminingduringibd=1 to override."
+        );
+    }
 
     static unsigned int nTransactionsUpdatedLast;
     const CTxMemPool& mempool = EnsureMemPool(request.context);
@@ -913,6 +937,14 @@ static RPCHelpMan getblocktemplate()
     const auto& mweb_block = pblocktemplate->block.mweb_block;
     if (!mweb_block.IsNull()) {
         result.pushKV("mweb", HexStr(mweb_block.m_block->Serialized()));
+    }
+
+    // NEW: runtime warning when mining during IBD is allowed
+    if (::ChainstateActive().IsInitialBlockDownload() && gArgs.GetBoolArg("-allowminingduringibd", false)) {
+        result.pushKV(
+            "warning",
+            "Node is in initial block download (IBD). Mining on this node is only safe for private or early-bootstrap networks."
+        );
     }
 
     return result;
