@@ -1,85 +1,235 @@
-Altcoin Core integration/staging tree
-=====================================
+<p align="center">
+  <img src="https://altoshi.org/altoshi.png" width="180" alt="Altcoin Logo"/>
+</p>
 
-[![Build Status](https://travis-ci.org/altoshicoin/altcoin.svg?branch=master)](https://travis-ci.org/altoshicoin/altcoin)
+<p align="center">
+  <a href="https://github.com/altoshicoin/altcoin/releases">
+    <img src="https://img.shields.io/github/v/release/altoshicoin/altcoin?label=Altcoin%20Core&color=blue"/>
+  </a>
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/license-MIT-green.svg"/>
+  </a>
+</p>
 
-https://altoshi.org
+---
 
-What is Altcoin?
-----------------
+# **Altcoin Core v2.0.0 (NG1 Mainnet)**
 
-Altcoin is an experimental digital currency that enables instant payments to
-anyone, anywhere in the world. Altcoin uses peer-to-peer technology to operate
-with no central authority: managing transactions and issuing money are carried
-out collectively by the network. Altcoin Core is the name of open source
-software which enables the use of this currency.
+Altcoin (Altoshi Coin / **ALT**) is a Litecoin-family Proof-of-Work blockchain rebooted under a clean new-genesis mainnet (NG1), upgraded networking rules, modernized P2P behavior, and improved mining compatibility.  
 
-For more information, as well as an immediately useable, binary version of
-the Altcoin Core software, see [https://altoshi.org](https://altoshi.org).
+Altoshi Coin (ALT) is a proof-of-work cryptocurrency focused on *fair distribution*, *open-source development*, and a *strong mining ecosystem*.
+At its core, Altoshi Coin is about utility and community. It’s a clean foundation for learning, building, and iterating: from running nodes and mining to exploring transactions, testing wallets, and shaping a broader ecosystem over time. The slogan captures the vibe, but the goal is serious: a resilient, understandable PoW network with clear monetary rules, predictable issuance, and the kind of operational transparency that lets builders and users participate confidently. 
 
-License
--------
+---
 
-Altcoin Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
-information or see https://opensource.org/licenses/MIT.
+## **🔹 Technical Specs**
 
-Development Process
--------------------
+- **Coin name:** Altoshi Coin  
+- **Ticker:** ALT  
+- **Algorithm:** Scrypt (Proof-of-Work)  
+- **Total Supply:** 88,000,000 ALT  
+- **Block Reward:** 52.38095238 ALT  
+- **Block Time:** 2.5 minutes (`nPowTargetSpacing = 2.5 * 60`)  
+- **Halving Interval:** Every 840,000 blocks  
+- **Premine:** 680.95238094 ALT → ~0.0007738% of 88,000,000  
+- **Coinbase Maturity:** 100 blocks  
+- **Target Timespan:** 84 hours  
+- **Address Format:** Bech32 + MWEB (Litecoin-style, plus legacy support)  
+- **P2P Port:** `11555`  
+- **RPC Port:** `11433`  
+- **Bootstrap Node:**  
+  `addnode=node1.altoshi.org:11555`
 
-The `master` branch is regularly built (see `doc/build-*.md` for instructions) and tested, but it is not guaranteed to be
-completely stable. [Tags](https://github.com/altoshicoin/altcoin/tags) are created
-regularly from release branches to indicate new official, stable release versions of Altcoin Core.
+---
 
-The https://github.com/altoshicoin/gui repository is used exclusively for the
-development of the GUI. Its master branch is identical in all monotree
-repositories. Release branches and tags do not exist, so please do not fork
-that repository unless it is for development reasons.
+## **🚀 Key Features**
 
-The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md)
-and useful hints for developers can be found in [doc/developer-notes.md](doc/developer-notes.md).
+- **New-Genesis Mainnet (NG1)**  
+  Fresh chain with, consistent parameters, and predictable emission.
 
-The developer [mailing list](https://groups.google.com/forum/#!forum/altcoin-dev)
-should be used to discuss complicated or controversial changes before working
-on a patch set.
+- **Improved P2P Sync (Fix B)**  
+  Nodes no longer ignore `GETHEADERS` during initial block download (IBD).  
+  New nodes can connect to a NG1 peer and synchronize normally.
 
-Developer IRC can be found on Freenode at #altcoin-dev.
+- **Miner Compatibility Patch**  
+  `getblocktemplate` supports miners that send `{"rules":["segwit"]}` only.  
+  The node automatically handles the required MWEB rules internally, so modern Scrypt miners that speak Litecoin-style GBT work without patches.
 
-Testing
--------
+- **Modern Feature Set**  
+  Based on a Litecoin/Bitcoin 0.21 codebase with SegWit and MWEB support.
 
-Testing and code review is the bottleneck for development; we get more pull
-requests than we can review and test on short notice. Please be patient and help out by testing
-other people's pull requests, and remember this is a security-critical project where any mistake might cost people
-lots of money.
+- **Updated Default Ports**  
+  - P2P: `11555`  
+  - RPC: `11433`  
 
-### Automated Testing
+---
 
-Developers are strongly encouraged to write [unit tests](src/test/README.md) for new code, and to
-submit new unit tests for old code. Unit tests can be compiled and run
-(assuming they weren't disabled in configure) with: `make check`. Further details on running
-and extending unit tests can be found in [/src/test/README.md](/src/test/README.md).
+## **📦 Downloads**
 
-There are also [regression and integration tests](/test), written
-in Python, that are run automatically on the build server.
-These tests can be run (if the [test dependencies](/test) are installed) with: `test/functional/test_runner.py`
+Precompiled binaries for Linux (x86_64) and Windows (x64) are available here:
 
-The Travis CI system makes sure that every pull request is built for Windows, Linux, and macOS, and that unit/sanity tests are run automatically.
+👉 **https://github.com/altoshicoin/altcoin/releases/latest**
 
-### Manual Quality Assurance (QA) Testing
+Each release includes:
 
-Changes should be tested by somebody other than the developer who wrote the
-code. This is especially important for large or high-risk changes. It is useful
-to add a test plan to the pull request description if testing the changes is
-not straightforward.
+- `altcoind` / `altcoin-qt`  
+- `altcoin-cli`, `altcoin-tx`, `altcoin-wallet`  
+- Archive files (`.tar.gz` / `.zip`)  
+- SHA256SUMS files  
+- GPG `.asc` signatures
 
-Translations
-------------
+---
 
-We only accept translation fixes that are submitted through [Bitcoin Core's Transifex page](https://www.transifex.com/projects/p/bitcoin/).
-Translations are converted to Altcoin periodically.
+## **🔧 Quick Start (Linux Node)**
 
-Translations are periodically pulled from Transifex and merged into the git repository. See the
-[translation process](doc/translation_process.md) for details on how this works.
+Create a minimal config, e.g. `~/.altcoin/altcoin.conf`:
 
-**Important**: We do not accept translation changes as GitHub pull requests because the next
-pull from Transifex would automatically overwrite them again.
+```conf
+server=1
+rpcuser=altuser
+rpcpassword=strongpassword_here
+rpcallowip=127.0.0.1
+rpcbind=127.0.0.1
+rpcport=11433
+
+listen=1
+port=11555
+
+addnode=node1.altoshi.org:11555
+txindex=0
+```
+Start the daemon:
+
+```bash
+./altcoind -daemon
+```
+
+Check sync status:
+
+```bash
+./altcoin-cli getblockchaininfo
+```
+
+---
+
+## **🪟 Quick Start (Windows Node)**
+
+1. Download the **Windows** archive from the latest release.
+2. Extract it (e.g. `C:\Altcoin\` or similar).
+3. Run `altcoin-qt.exe` for the GUI wallet, or `altcoind.exe` for daemon mode.
+4. Altcoin will create a data directory, typically:
+   `%APPDATA%\Altcoin\`
+5. Create or edit `%APPDATA%\Altcoin\altcoin.conf` with similar contents:
+
+```conf
+server=1
+rpcuser=altuser
+rpcpassword=strongpassword_here
+rpcallowip=127.0.0.1
+rpcbind=127.0.0.1
+rpcport=11433
+
+listen=1
+port=11555
+
+addnode=node1.altoshi.org:11555
+txindex=0
+```
+
+---
+
+## **💻 Solo CPU Mining**
+
+Altcoin uses **Scrypt**, compatible with standard Litecoin-style miners.
+
+Example using `cpuminer-multi`:
+
+```bash
+./cpuminer -a scrypt \
+  -o http://127.0.0.1:11433 \
+  -u altuser -p strongpassword_here \
+  --no-stratum \
+  --coinbase-addr=YOUR_ALT_ADDRESS
+```
+
+### Advanced: `allowminingduringibd`
+
+For solo miners or testing, you can allow mining during IBD:
+
+```bash
+./altcoind -conf=/path/to/altcoin.conf \
+           -datadir=/path/to/altcoin-data \
+           -allowminingduringibd=1
+```
+
+> ⚠ **Advanced option:** recommended only if you understand the risks of mining while not fully synced (potential reorgs / orphan blocks).
+
+---
+
+## **🏊 Mining Pools (Template Only)**
+
+Altcoin supports standard Scrypt Stratum mining. A typical command pattern is:
+
+```bash
+cgminer -o stratum+tcp://yourpool.com:3333 \
+        -u YOUR_ALT_ADDRESS \
+        -p x \
+        --scrypt
+```
+
+Pool operators should:
+
+* Point their pool daemon to a fully synced Altcoin node (RPC `11433`, P2P `11555`)
+* Use `algo = scrypt` in their pool configuration
+* Configure `addnode=node1.altoshi.org:11555` (or another trusted NG1 peer)
+
+> ℹ No official or endorsed pools are listed yet.
+> Independent pool operators may contact the project to be listed in future docs.
+
+---
+
+## **🔐 Verification**
+
+Verify SHA256 checksums (Linux):
+
+```bash
+sha256sum -c SHA256SUMS-linux-x86_64.txt
+```
+
+Verify signatures (after importing the Altcoin release key):
+
+```bash
+gpg --verify SHA256SUMS-linux-x86_64.txt.asc SHA256SUMS-linux-x86_64.txt
+gpg --verify SHA256SUMS-win64-v2.0.0.txt.asc SHA256SUMS-win64-v2.0.0.txt
+```
+
+---
+
+## **🧩 Source Code & Contributions**
+
+Source code:
+[https://github.com/altoshicoin/altcoin](https://github.com/altoshicoin/altcoin)
+
+Contributions are welcome:
+
+* Core protocol & consensus
+* Wallet and GUI improvements
+* Explorers, pool software integration
+* Documentation and examples
+
+Open issues and pull requests are appreciated.
+
+---
+
+## **🌐 Project Website**
+
+Guides, explorer links, and ecosystem updates:
+**[https://altoshi.org/](https://altoshi.org/)**
+
+---
+
+## **⚖️ License**
+
+Altcoin Core is open-source software licensed under the **MIT License**.
+See the `LICENSE` file for full details.
+
