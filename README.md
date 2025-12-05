@@ -13,6 +13,19 @@
 
 ---
 
+> ⚠️ **Altcoin NG1 is deprecated — NG2 mainnet coming soon**
+>
+> NG1 (the current chain) is now frozen as a **prelaunch / experimental chain**.
+> It experienced extreme mining centralization (~96% of coins mined by a single miner)
+> and early technical issues (stuck SegWit-style transactions).  
+> We are preparing **Altcoin NG2**, a fresh mainnet with a new genesis, fixed consensus
+> parameters, and a fairer launch. NG1 binaries and chain are kept only for testing.
+>
+> See the full transition notice in the Releases section.
+
+---
+
+
 # **Altcoin Core v2.0.0 (NG1 Mainnet)**
 
 Altcoin (Altoshi Coin / **ALT**) is a Litecoin-family Proof-of-Work blockchain rebooted under a clean new-genesis mainnet (NG1), upgraded networking rules, modernized P2P behavior, and improved mining compatibility.  
